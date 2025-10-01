@@ -253,3 +253,14 @@ Phases are executed sequentially. Running a phase executes all phases before it.
     * `mvn clean install`: Cleans the project, runs tests, packages the artifact, and installs it in the local Maven repository.
     * `mvn clean package`: Cleans the project, runs tests, and packages the artifact (without installing locally).
     * `mvn test`: Runs only the unit tests.
+
+
+*For In Depth MySQL DataBase Notes [MySQL](https://github.com/dhruv-dosh/MySQL_Relational_Database_Notes)*
+ 
+ *For In Depth Java Notes [Java_Notes](https://github.com/dhruv-dosh/Java_In_Depth_Notes)*
+ 
+ *For Learning Docker [Docker](https://github.com/dhruv-dosh/Docker_Notes_And_Commands)*
+ 
+ *For Learning Jenkins [Jenkins](https://github.com/dhruv-dosh/Jenkins_Declarative_Pipeline_Setup)*
+
+*Created and maintained by [dhruv-doshi](https://github.com/dhruv-dosh)*
