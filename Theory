@@ -71,6 +71,27 @@ The container can inject dependencies in a few ways:
     4.  For subsequent requests, the client sends the JWT (typically in the **`Authorization` header** as a Bearer token).
     5.  A custom **JWT Filter** in the Spring Security chain intercepts the request, validates the JWT's signature and expiration, extracts the user's details, and sets the authentication context for the request to be authorized.
 
+The three main components of a JSON Web Token (JWT), which are separated by dots (`.`), are the **Header, Payload, and Signature**.
+
+### 1. Header
+* **Purpose:** Contains metadata about the token itself, primarily specifying the token type and the cryptographic algorithm used for signing.
+* **Contents:** Typically a JSON object with:
+    * `"typ"`: The type of token (e.g., `"JWT"`).
+    * `"alg"`: The signing algorithm (e.g., `"HS256"`, `"RS256"`).
+* **Format:** This JSON is **Base64Url encoded** to form the first part of the token.
+
+### 2. Payload
+* **Purpose:** Contains the **claims**, which are statements or pieces of information about the user (the entity) and additional data.
+* **Contents:** Also a JSON object containing various claims, such as:
+    * `"sub"` (Subject): Who the token refers to (e.g., a user ID).
+    * `"exp"` (Expiration Time): The time after which the token is invalid.
+    * `"iss"` (Issuer): The entity that issued the token.
+* **Format:** This JSON is also **Base64Url encoded** to form the second part of the token.
+
+### 3. Signature
+* **Purpose:** The critical part that ensures the token's **integrity** (that it hasn't been tampered with) and **authenticity** (that it was created by the expected issuer).
+* **Creation:** It is created by taking the **encoded Header, the encoded Payload, and a secret key** (or private key) and passing them through the cryptographic hash function specified in the Header.
+* **Validation:** The receiving server re-calculates the signature using the same method and its known secret key. If the calculated signature matches the one in the token, the token is trusted.
 
 
 ### Authentication vs. Authorization
