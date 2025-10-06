@@ -15,4 +15,6 @@
 | **`@Entity`** | Marks a Java class as a JPA entity, meaning it represents a table in the relational database. |
 | **`@Id`** | Designates the primary key field of a JPA entity, which uniquely identifies each record in the database table. |
 | **`@AllArgsConstructor`** | A Lombok annotation that automatically generates a constructor with arguments for all fields in the class. |
-
+| **`@RequestParam`** | Extracts values from the URL **query parameters** (the key-value pairs after the `?`). It's typically used for filtering, sorting, or simple data inputs. *Example: `/users?name=Alice`* |
+| **`@RequestHeader`** | Used to read a specific value from the **HTTP request headers** (metadata about the request), such as `Authorization`, `User-Agent`, or `Content-Type`. |
+| **`@ResponseBody`** | Indicates that the return value of a controller method should be directly written as the **response body** (e.g., as JSON or XML) instead of being treated as a view name. (This is included by default in `@RestController`). |
