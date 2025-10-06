@@ -1,0 +1,18 @@
+| Annotation | Easy Definition for Interview |
+| :--- | :--- |
+| **`@Component`** | A generic annotation marking a class as a Spring-managed component (bean) for the Spring container to scan and manage. |
+| **`@Controller`** | A specialization of `@Component` used in Spring MVC to mark a class that handles user requests and often returns a view (like an HTML page). |
+| **`@Service`** | A specialization of `@Component` used to mark a class that holds the business logic of the application. |
+| **`@Repository`** | A specialization of `@Component` used to mark a class that interacts directly with the database (Data Access Object - DAO layer). It also enables automatic exception translation. |
+| **`@Autowired`** | Used for automatic dependency injection. Spring looks for a matching bean (by type, usually) and injects it into the field, constructor, or setter method. |
+| **`@Primary`** | Used on a bean to indicate that it should be given preference when there are multiple beans of the same type available for autowiring. |
+| **`@Qualifier`** | Used along with `@Autowired` to specify exactly which bean should be injected by name when there are multiple beans of the same type. |
+| **`@RestController`** | A convenience annotation that combines `@Controller` and `@ResponseBody`. It's used to create RESTful web services that directly return data (like JSON/XML) instead of a view. |
+| **`@RequestMapping`** | Used to map HTTP requests (like GET, POST, etc.) to handler methods in a controller class. It can be used at both the class and method level. |
+| **`@CrossOrigin`** | Enables Cross-Origin Resource Sharing (CORS) on a class or method, allowing requests from different domains/ports. |
+| **`@PathVariable`** | Used to extract a value from the URI template and bind it to a method parameter. E.g., extracting `101` from `/users/101`. |
+| **`@RequestBody`** | Binds the body of the incoming HTTP request (e.g., JSON or XML) to a Java object method parameter. Used for sending data to the server. |
+| **`@Entity`** | Marks a Java class as a JPA entity, meaning it represents a table in the relational database. |
+| **`@Id`** | Designates the primary key field of a JPA entity, which uniquely identifies each record in the database table. |
+| **`@AllArgsConstructor`** | A Lombok annotation that automatically generates a constructor with arguments for all fields in the class. |
+
