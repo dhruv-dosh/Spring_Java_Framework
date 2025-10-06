@@ -91,3 +91,107 @@ The container can inject dependencies in a few ways:
 "Authentication is the process of confirming a user's identity, often through a username and password—it's **proving who you are**.
 
 Authorization comes after; it's the process of defining and enforcing what an authenticated user **is allowed to do or access** based on their assigned roles or privileges. For example, an 'Admin' is authorized to delete a record, but a 'Guest' is only authorized to read it."
+
+
+
+
+It is common for interviewers to ask for answers to the previous questions in a structured, concise format. Here are the interview-ready answers for the most critical Spring concepts you requested.
+
+I. Spring Core (IoC and DI)
+1. What are the core features of the Spring Framework?
+"The Spring Framework is primarily built around two core concepts: Inversion of Control (IoC) and Aspect-Oriented Programming (AOP).
+
+IoC Container/DI: The container manages the lifecycle of Java objects (Beans) and injects their dependencies, promoting loose coupling.
+
+AOP: It allows modularizing cross-cutting concerns like logging, security, and transaction management, keeping business logic clean.
+
+Data Access: It provides easy integration and abstraction layers for persistence technologies like JDBC, JPA, and Hibernate.
+
+Transaction Management: Offers a consistent, declarative approach to managing transactions across different environments."
+
+2. Explain the different types of Dependency Injection. Which is preferred and why?
+"There are three main types of Dependency Injection:
+
+Constructor Injection: Dependencies are provided via a class's constructor.
+
+Setter Injection: Dependencies are provided via public setter methods.
+
+Field Injection: Dependencies are injected directly into fields using reflection.
+
+Constructor Injection is strongly preferred because:
+
+It ensures the object is created in a valid state with all mandatory dependencies present.
+
+It easily allows for creating immutable objects by using final fields, improving thread safety and reliability."
+
+3. What are the different Bean Scopes in Spring? Are Spring Singleton beans thread-safe?
+"The primary bean scopes are:
+
+Singleton (Default): Only one instance of the bean is created per Spring IoC container.
+
+Prototype: A new instance is created every time the bean is requested.
+
+Request, Session, GlobalSession: Used specifically in web applications, creating an instance per HTTP request, user session, etc.
+
+Regarding Thread Safety:
+Spring's default Singleton scope does NOT guarantee thread safety. Thread safety depends entirely on how the developer implements the bean. Since a single instance is shared across all concurrent threads, if that bean maintains a mutable internal state (instance variables), it will lead to race conditions. Therefore, Singleton beans should be designed to be stateless for the application to be thread-safe."
+
+
+
+
+4. What is the difference between @Component, @Service, @Repository, and @Controller?
+"All four are Spring Stereotype annotations that act as specializations of the generic @Component. They all signal to the Spring Container to create a bean during component scanning, but they have distinct semantic roles and sometimes add technical functionality:
+
+Annotation	Layer/Role	Key Technical Feature
+@Controller	Presentation Layer	Handles incoming HTTP requests in Spring MVC.
+@Service	Business/Service Layer	Holds the core business logic and orchestrates transactions. No technical distinction, purely semantic.
+@Repository	Persistence/DAO Layer	Handles database operations.
+@Component	Generic	Used for any general-purpose utility or helper class that doesn't fit into the other three roles."
+
+Export to Sheets
+II. Spring Boot
+5. What does the @SpringBootApplication annotation do internally?
+"The @SpringBootApplication annotation is a convenience annotation that is equivalent to combining three other annotations:
+
+@Configuration: Tags the class as a source of bean definitions for the application context.
+
+@EnableAutoConfiguration: This is the key feature. It tells Spring Boot to automatically configure beans based on the JAR dependencies present on the classpath. For instance, if H2 is present, it auto-configures a data source.
+
+@ComponentScan: This tells Spring to look for other components, configurations, and services in the current package and its sub-packages, and register them as beans."
+
+6. What is Auto-Configuration and Starter Dependencies?
+Auto-Configuration: "This is Spring Boot's 'Convention over Configuration' principle in action. It automatically configures Spring beans and settings based on what libraries it finds on the classpath. It dramatically reduces the need for manual configuration. For example, if you add the spring-boot-starter-web dependency, Spring Boot automatically configures Tomcat and DispatcherServlet."
+
+
+
+
+Starter Dependencies (Starter POMs): "These are convenient dependency descriptors you can include in your build file. They pull in all the necessary common dependencies and transitively manage their version compatibility. For example, spring-boot-starter-data-jpa pulls in JPA, Hibernate, and the necessary Spring dependencies, all with compatible versions."
+
+
+III. Spring Data JPA
+7. How does Spring Data JPA simplify the data access layer?
+"Spring Data JPA simplifies data access by eliminating almost all the boilerplate code required for implementing repositories. Instead of writing concrete classes for CRUD operations, you just define a Repository interface (e.g., extending JpaRepository). The framework automatically provides:
+
+CRUD Functionality: Methods like save(), findById(), and delete().
+
+Query Generation: Custom queries are automatically generated simply by defining methods with names following a specific convention, such as findByLastNameAndFirstName(String lastName, String firstName)."
+
+8. What is JPQL, and how is it different from native SQL?
+"JPQL (Java Persistence Query Language) is the object-oriented query language defined by the JPA specification.
+
+Object-Oriented: JPQL queries are written against the application's Entity objects and their fields, not against the physical database tables and columns.
+
+Portability: This abstraction makes JPQL queries database-agnostic. The underlying JPA provider (like Hibernate) translates the JPQL into the dialect of the target database (e.g., MySQL or PostgreSQL)."
+
+IV. Spring Security and JWT
+9. How do you implement JWT Authentication with Spring Security?
+
+"JWT authentication provides a stateless mechanism, which is ideal for REST APIs and microservices. The process involves custom integration with the Spring Security filter chain:
+
+Login/Token Generation: Upon successful authentication (e.g., username/password validation), the server generates a JWT and returns it to the client.
+
+Subsequent Requests: The client sends the JWT in the Authorization header (as a Bearer token) for every protected request.
+
+Custom Filter (JWT Filter): A custom filter is placed early in the Spring Security filter chain. This filter intercepts the request, validates the JWT's signature and expiration, extracts the user details from the token's payload, and manually sets the Authentication object in the SecurityContextHolder.
+
+Authorization: Once the user is authenticated via the token, Spring Security's authorization mechanisms can proceed to check if the user has permission to access the requested resource."
