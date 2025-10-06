@@ -1,0 +1,72 @@
+### 1. Inversion of Control (IoC)
+* **Definition:** IoC is a design principle where the flow of control of an application is inverted. Instead of the application code being responsible for creating and managing its dependencies and their lifecycle, that responsibility is **delegated to a framework or a container** (like the Spring IoC container).
+* **Analogy:** It’s often referred to as the "Hollywood Principle": "**Don't call us, we'll call you.**" Your custom code focuses purely on business logic, and the framework calls your code (e.g., to inject dependencies) when needed.
+* **Benefit:** Promotes loose coupling and enhances modularity and testability.
+
+### 2. IoC Container (e.g., Spring Container)
+* **Definition:** The IoC Container is the core component or engine of a framework (like Spring) that is responsible for **instantiating, configuring, and assembling** objects (known as **Beans**) and managing their entire lifecycle.
+* **Role:** It implements the Inversion of Control principle, primarily through **Dependency Injection**. It reads configuration metadata (XML or annotations) to figure out which beans to create, which dependencies they need, and how to inject them.
+
+### 3. Dependency Injection (DI)
+* **Definition:** Dependency Injection is a design pattern used to implement IoC. It's the process where an object receives its required dependencies from an **external source** (the IoC container) rather than creating them itself.
+* **Mechanism:** The container *injects* the required objects into the dependent object at runtime.
+* **Benefit:** Decreases tight coupling between components, making the code more flexible, testable, and maintainable.
+
+### 4. Types of Dependency Injection
+The container can inject dependencies in a few ways:
+
+* **Constructor Injection:** The container supplies the dependencies through a class's constructor arguments. This is generally preferred as it ensures that the object is created in a valid state with all required dependencies initialized (i.e., it makes dependencies mandatory).
+* **Setter Injection (or Property Injection):** The container supplies the dependencies by calling the public setter methods of the class after the object has been created using a no-argument constructor. This is suitable for optional dependencies.
+* **Field Injection:** The container injects dependencies directly into private fields using reflection. While convenient due to less boilerplate code, it's generally discouraged in favor of constructor injection as it hides dependencies and makes the class harder to test without the container.
+
+### 5. Difference between Spring and Spring Boot
+
+| Feature | Spring Framework | Spring Boot |
+| :--- | :--- | :--- |
+| **Nature** | A **comprehensive framework** for building Java enterprise applications. | An **extension/convention-over-configuration layer** built on top of the Spring Framework. |
+| **Configuration** | Requires significant and often complex configuration (XML or extensive Java config) for things like DataSource, View Resolvers, etc. | **Minimal configuration** due to **Auto-Configuration** and "sensible defaults." |
+| **Server** | Requires an external application server (e.g., Tomcat, Jetty) for deployment (e.g., a WAR file). | Includes an **embedded server** (Tomcat, Jetty, or Undertow) by default, allowing you to run it as a standalone JAR. |
+| **Dependencies** | Requires manual declaration and version management for all dependencies. | Uses **Starter POMs** (e.g., `spring-boot-starter-web`) to group related dependencies and manage versions automatically. |
+| **Goal** | To provide a robust, flexible platform for large-scale enterprise applications. | To enable the **rapid creation of production-ready, stand-alone Spring applications** with minimal effort. |
+
+### 6. MVC Structure (Model-View-Controller)
+* **Definition:** MVC is a software architectural pattern that separates an application into three interconnected parts to isolate internal representations of information from the user interface presentation.
+* **Components:**
+    * **Model:** Manages the application's data, business logic, and state. It is independent of the user interface.
+    * **View:** Renders the presentation of the data in a particular format (e.g., HTML, JSON) to the user.
+    * **Controller:** Handles user input, processes requests, interacts with the Model to update data, and selects the appropriate View to render the response.
+* **Benefit:** Separation of Concerns, which improves code organization, reusability, and maintainability.
+
+### 7. ORM (Object-Relational Mapping)
+* **Definition:** ORM is a programming technique that provides a layer of abstraction to **map a database's relational structure (tables, columns) to an application's object-oriented structure (classes, fields).**
+* **Role:** It allows developers to interact with the database using their programming language's objects and methods instead of writing raw SQL queries. The ORM tool handles the translation of object operations into SQL statements and vice-versa.
+* **Example:** Hibernate and EclipseLink are popular ORM frameworks in Java.
+
+### 8. Spring Data JPA
+* **Definition:** Spring Data JPA is a sub-project of the Spring Framework that **significantly simplifies the implementation of data access layers** for applications using the Java Persistence API (JPA).
+* **Key Feature:** It provides an abstraction called a **Repository** interface (e.g., `JpaRepository`). By simply defining a repository interface and extending a Spring Data interface, the framework automatically generates and implements common CRUD (Create, Read, Update, Delete) and custom query methods based on the method name convention (e.g., `findByLastNameAndFirstName(String lastName, String firstName)`).
+* **Benefit:** Reduces boilerplate code and increases developer productivity.
+
+### 9. JPQL (Java Persistence Query Language)
+* **Definition:** JPQL is the **platform-independent object-oriented query language** defined as part of the Java Persistence API (JPA) specification.
+* **Key Characteristic:** Unlike SQL, which queries database tables and columns, **JPQL queries entities and their fields**. It uses the object model of the application.
+* **Usage:** It is used within JPA/Hibernate to perform CRUD operations where the standard repository methods are insufficient.
+
+### 10. Lombok
+* **Definition:** Project Lombok is a Java library that **automatically plugs into the build process to generate boilerplate code** for Java classes.
+* **Mechanism:** It uses annotations (like `@Getter`, `@Setter`, `@ToString`, `@NoArgsConstructor`, `@AllArgsConstructor`, and `@Data`) to generate the corresponding methods at compile time.
+* **Benefit:** Significantly reduces the amount of repetitive, verbose code, making Java classes more concise and readable.
+
+### 11. Spring Security and JWT Authentication
+#### Spring Security
+* **Definition:** Spring Security is a **powerful and highly customizable authentication and access control (authorization) framework** for securing Java applications, especially those built with Spring.
+* **Mechanism:** Its primary mechanism is a **chain of filters** that intercept incoming HTTP requests to perform security checks (e.g., checking credentials, validating tokens, authorizing resource access) before the request reaches the Controller.
+
+#### JWT Authentication (with Spring Security)
+* **JWT (JSON Web Token):** A compact, URL-safe means of representing claims (like user identity) to be transferred between two parties. It consists of three parts: **Header, Payload, and Signature**. It's primarily used for **stateless authentication**.
+* **Authentication Flow:**
+    1.  The client sends credentials (username/password) to the server.
+    2.  The server (using Spring Security) authenticates the user and generates a signed JWT.
+    3.  The server returns the JWT to the client.
+    4.  For subsequent requests, the client sends the JWT (typically in the **`Authorization` header** as a Bearer token).
+    5.  A custom **JWT Filter** in the Spring Security chain intercepts the request, validates the JWT's signature and expiration, extracts the user's details, and sets the authentication context for the request to be authorized.
